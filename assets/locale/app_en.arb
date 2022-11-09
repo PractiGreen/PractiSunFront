@@ -1,0 +1,51 @@
+{
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+      "description": "The conventional newborn programmer greeting"
+    },
+    "email": "Your email",
+    "@email": {
+      "description": "The user email"
+    },
+    "firstName": "Your first name",
+    "@firstName": {
+      "description": "The user first name"
+    },
+    "lastName": "Your last name",
+    "@lastName": {
+      "description": "The user last name"
+    },
+    "password": "Your password",
+    "@password": {
+      "description": "The user password"
+    },
+    "passwordConfirmation": "Password confirmation",
+    "@passwordConfirmation": {
+      "description": "The user password confirmation"
+    },
+    "login": "Login",
+    "@login": {
+      "description": "login"
+    },
+    "register": "Register",
+    "@register": {
+      "description": "register"
+    },
+
+    "fieldErrorEmpty": "This field can not be empty",
+    "@fieldErrorEmpty": {
+      "description": "The user have not enter a field required"
+    },
+    "emaildErrorNotValid": "This email is not valid",
+    "@emaildErrorNotValid": {
+      "description": "The user have enter a mail not valid"
+    },
+    "passwordErrorRegex": "Password must contain at least lowercase, uppercase, special character, 8 characters",
+    "@passwordErrorRegex": {
+      "description": "Password match regex"
+    },
+    "passwordConfirmationErrorNotSame": "Password and confirm password are different",
+    "@passwordConfirmationErrorNotSame": {
+      "description": "Password and confirm password are different"
+    }
+}

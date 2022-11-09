@@ -1,0 +1,14 @@
+{
+  "helloWorld": "Bonjour le monde !",
+  "email": "Votre email",
+  "firstName": "Votre prénom",
+  "lastName": "Votre nom",
+  "password": "Votre mot de passe",
+  "passwordConfirmation": "Confirmation du mot de passse",
+  "login": "Se connecter",
+  "register": "S'enregistrer",
+  "fieldErrorEmpty": "Ce champ ne peut pas être vide",
+  "emaildErrorNotValid": "L'email n'est pas valide",
+  "passwordErrorRegex": "Le mot de passe doit contenir au minimum une minuscule, une majuscule, un caractère spécial et 8 caractères",
+  "passwordConfirmationErrorNotSame": "Le mot de passe et le mot de passe de confirmation sont différents"
+}
