@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practi_sun/layout/appBar.dart';
-import 'package:practi_sun/layout/navBar.dart';
+import 'package:practi_sun/layout/nav_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
@@ -27,7 +27,7 @@ class _WelcomPage extends State<WelcomPage> {
               child: Column(
             children: [
               Text("Welcome"),
-              Text(AppLocalizations.of(context)!.helloWorld)
+              Text(AppLocalizations.of(context)!.helloWorld),
             ],
           )),
         ],

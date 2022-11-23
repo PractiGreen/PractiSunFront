@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:practi_sun/components/loader.dart';
 import 'package:practi_sun/layout/appBar.dart';
-import 'package:practi_sun/layout/navBar.dart';
+import 'package:practi_sun/layout/nav_bar.dart';
+import 'package:practi_sun/pages/register.dart';
+import 'package:practi_sun/pages/welcome.dart';
+import 'package:practi_sun/theme/palettes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.title}) : super(key: key);
+import '../components/hover.dart';
 
-  final String title;
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPage();
@@ -22,69 +25,64 @@ class _LoginPage extends State<LoginPage> {
   String _password = "";
   bool loading = false;
 
-  // Future<Poke> _login() async {
-  //   setState(() {
-  //     loading = true;
-  //   });
-  //   var response = await http.post(
-  //       Uri.parse(
-  //           'http://gentle-ravine-49505.herokuapp.com/api-token-auth/?format=json'),
-  //       headers: {"Content-Type": "application/json"},
-  //       body: json.encode({'username': _username, 'password': _password}));
-  //   if (response.statusCode == 200) {
-  //     final jsonResponse = jsonDecode(response.body);
-  //     // ignore: invalid_use_of_visible_for_testing_member
-  //     SharedPreferences.setMockInitialValues({});
-  //     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     prefs.setString('token', jsonResponse["token"]);
-  //     loading = false;
-  //     // Navigator.of(context).push(MaterialPageRoute(
-  //     //     builder: (context) =>
-  //     //         TeamListPage(key: UniqueKey(), title: 'Teams')));
-  //   }
-  //   if (response.statusCode == 400) {
-  //     showDialog<String>(
-  //       context: context,
-  //       builder: (BuildContext context) => AlertDialog(
-  //         backgroundColor: const Color(0xFF343442),
-  //         shape:
-  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-  //         title: const Text('Description',
-  //             style: TextStyle(
-  //                 color: Color(0xFF993030), fontWeight: FontWeight.bold)),
-  //         content: Text(
-  //           "Username or password is incorrect",
-  //           style: TextStyle(
-  //             color: Colors.grey[300],
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             onPressed: () => Navigator.pop(context, 'OK'),
-  //             child: const Text('OK',
-  //                 style: TextStyle(
-  //                     color: Color(0xFF993030), fontWeight: FontWeight.bold)),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //     setState(() {
-  //       loading = false;
-  //     });
-  //   }
+  Future<void> _login() async {
+    setState(() {
+      loading = true;
+    });
+    var response = await http.post(
+        Uri.parse('http://127.0.0.1:8000/api-token-auth/?format=json'),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({'username': _username, 'password': _password}));
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+      // ignore: invalid_use_of_visible_for_testing_member
+      SharedPreferences.setMockInitialValues({});
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', jsonResponse["token"]);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              WelcomPage(key: UniqueKey(), title: 'Welcome')));
+    }
+    if (response.statusCode == 400) {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          // backgroundColor: const Color(0xFF343442),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+          title: Text(AppLocalizations.of(context)!.error,
+              style:
+                  TextStyle(color: primary[800], fontWeight: FontWeight.bold)),
+          content: Text(
+            AppLocalizations.of(context)!.errorUsernameOrPassword,
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: Text('OK',
+                  style: TextStyle(
+                      color: primary[800], fontWeight: FontWeight.bold)),
+            ),
+          ],
+        ),
+      );
+      setState(() {
+        loading = false;
+      });
+    }
 
-  //   setState(() {
-  //     loading = false;
-  //   });
-  //   return Future.error("error");
-  // }
+    setState(() {
+      loading = false;
+    });
+    // return Future.error("error");
+  }
 
   @override
   StatefulWidget build(BuildContext context) {
     return Scaffold(
       drawer: const NavBarr(),
       appBar: MyAppBar(
-        title: widget.title,
+        title: AppLocalizations.of(context)!.login,
       ),
       body: Center(
         child: Padding(
@@ -112,7 +110,6 @@ class _LoginPage extends State<LoginPage> {
                           child: SizedBox(
                             width: 300,
                             child: TextField(
-                              style: const TextStyle(color: Colors.white70),
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!.email,
                               ),
@@ -127,7 +124,6 @@ class _LoginPage extends State<LoginPage> {
                           child: SizedBox(
                             width: 300,
                             child: TextField(
-                              style: const TextStyle(color: Colors.white70),
                               obscureText: true,
                               enableSuggestions: false,
                               autocorrect: false,
@@ -140,18 +136,44 @@ class _LoginPage extends State<LoginPage> {
                             ),
                           ),
                         ),
+                        Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(100, 38)),
+                              onPressed: () {
+                                _login();
+                              },
+                              child: Text(AppLocalizations.of(context)!.login),
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: HoverBuilder(
+                            builder: (isHovered) {
+                              return MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => RegisterPage(
+                                                key: UniqueKey())));
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context)!.notRegister,
+                                    style: TextStyle(
+                                      decoration: isHovered
+                                          ? TextDecoration.underline
+                                          : null,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        )
                       ],
                     ),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(100, 38)),
-                          onPressed: () {
-                            // _login();
-                          },
-                          child: Text(AppLocalizations.of(context)!.login),
-                        ))
                   ],
           ),
         ),

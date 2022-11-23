@@ -10,5 +10,9 @@
   "fieldErrorEmpty": "Ce champ ne peut pas être vide",
   "emaildErrorNotValid": "L'email n'est pas valide",
   "passwordErrorRegex": "Le mot de passe doit contenir au minimum une minuscule, une majuscule, un caractère spécial et 8 caractères",
-  "passwordConfirmationErrorNotSame": "Le mot de passe et le mot de passe de confirmation sont différents"
+  "passwordConfirmationErrorNotSame": "Le mot de passe et le mot de passe de confirmation sont différents",
+  "errorUsernameOrPassword": "Votre email ou votre mot de passe est incorrect",
+  "error": "Erreur",
+  "notRegister": "Pas encore inscrit ? Inscrivez-vous ici !",
+  "mailAlreadyExist": "Il y a déjà un compte inscrit avec cette adresse mail."
 }
